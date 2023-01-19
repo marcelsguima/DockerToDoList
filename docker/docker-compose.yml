@@ -1,6 +1,6 @@
 version: '3'
 services:
-  backend:
+  back-end:
     image: todobackend
     ports:
       - 3001:3001
@@ -8,15 +8,15 @@ services:
       - net1
     restart: on-failure
 
-  frontend:
+  front-end:
     image: todofrontend
     ports:
       - 3000:3000
     depends_on:
       - backend
     environment:
-     - REACT_APP_API_HOST=backend
-     - REACT_APP_API_PORT=3001
+     - REACT_APP_API_HOST=back-end
+
     networks:
       - net1
     restart: on-failure
@@ -24,11 +24,11 @@ services:
   test:
     image: todotests
     depends_on:
-      - frontend
-      - backend
+      - front-end
+      - back-end
     environment:
-      - FRONT_HOST=frontend
-      - FRONT_PORT=3000
+      - FRONT_HOST=front-end
+
     networks:
       - net1
     restart: on-failure
